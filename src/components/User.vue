@@ -23,7 +23,7 @@
         <div class="tagulWrap">
           <div class="tagul" v-for="set in user.recent_topics" :key="set.id">
             <div class="one">
-              <router-link :to="`/topic/${set.id}`">
+              <router-link :to="`/user/${set.author.loginname}`">
                 <img :src="set.author.avatar_url" alt />
               </router-link>
             </div>

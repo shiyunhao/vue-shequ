@@ -61,6 +61,7 @@ export default {
       this.$router.push("/");
     },
     submit() {
+      console.log(this.content);
       axios
         .post("https://www.vue-js.com/api/v1/topics", {
           tab: this.tab,
@@ -139,13 +140,15 @@ export default {
 }
 .addarticle-inner > .addarticle-textarea {
   padding: 10px;
-  height: 300px;
 }
 .addarticle-inner > .addarticle-textarea .quill-editor {
   height: 100%;
 }
 .addarticle-inner > .addarticle-textarea .ql-snow {
   border: none;
+}
+.addarticle-inner > .addarticle-textarea .ql-container {
+  height: 300px;
 }
 .addarticle-inner > .addarticle-textarea .ql-toolbar.ql-snow {
   border: none;

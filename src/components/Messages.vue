@@ -16,6 +16,9 @@
                 <router-link :to="`/topics/${message.topic.id}`">{{message.topic.title}}</router-link>
                 <span>中@了你</span>
               </div>
+              <div class="arrirm">
+                <b>√</b>
+              </div>
             </li>
           </ul>
           <span v-else>无消息</span>
@@ -29,9 +32,9 @@
           <li v-for="message in has_read_messages" :key="message.id">
             <div>
               <router-link :to="`/user/${message.author.loginname}`">{{message.author.loginname}}</router-link>
-              <span>在话题</span>
+              <span>{{message.type==='at'?'在话题':'回复了你的话题'}}</span>
               <router-link :to="`/topics/${message.topic.id}`">{{message.topic.title}}</router-link>
-              <span>中@了你</span>
+              <span>{{message.type==='at'?'中@了你':''}}</span>
             </div>
             <div class="arrirm">
               <b>√</b>
@@ -73,15 +76,9 @@ export default {
         this.hasnot_read_messages = res.data.data.hasnot_read_messages;
         console.log(this.hasnot_read_messages);
       });
-    if (this.$router.fullPath != "my/messages") {
-      axios
-        .post("https://www.vue-js.com/api/v1/message/mark_all", {
-          accesstoken: sessionStorage.getItem("token")
-        })
-        .then(res => {
-          console.log(res.data);
-        });
-    }
+    axios.post("https://www.vue-js.com/api/v1/message/mark_all", {
+      accesstoken: sessionStorage.getItem("token")
+    });
   }
 };
 </script>

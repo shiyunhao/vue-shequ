@@ -70,16 +70,25 @@ export default {
           console.log(res.data);
           this.userInfo = res.data;
         });
-      axios
-        .get(
-          `https://www.vue-js.com/api/v1/message/count?accesstoken=${sessionStorage.getItem(
-            "token"
-          )}`
-        )
-        .then(res => {
-          this.messageNum = res.data.data;
-          console.log(res.data.data);
-        });
+    }
+  },
+  watch: {
+    "$route.fullPath": {
+      immediate: true,
+      handler() {
+        if (sessionStorage.getItem("token")) {
+          axios
+            .get(
+              `https://www.vue-js.com/api/v1/message/count?accesstoken=${sessionStorage.getItem(
+                "token"
+              )}`
+            )
+            .then(res => {
+              this.messageNum = res.data.data;
+              console.log(res.data.data);
+            });
+        }
+      }
     }
   },
   methods: {
