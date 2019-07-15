@@ -23,7 +23,7 @@
         <div class="tagulWrap">
           <div class="tagul" v-for="set in user.recent_topics" :key="set.id">
             <div class="one">
-              <router-link :to="`/user/${set.author.loginname}`">
+              <router-link :to="`/vue-shequ/user/${set.author.loginname}`">
                 <img :src="set.author.avatar_url" alt />
               </router-link>
             </div>
@@ -32,7 +32,7 @@
           <span :style="{color:'#ccc'}">{{topic.visit_count}}</span>
             </div>-->
             <div class="four">
-              <router-link :to="`/topic/${set.id}`" :title="set.title">{{set.title}}</router-link>
+              <router-link :to="`/vue-shequ/topic/${set.id}`" :title="set.title">{{set.title}}</router-link>
             </div>
             <div class="five time">
               <span>{{myMomentUser(set.last_reply_at)}}</span>
@@ -41,7 +41,7 @@
         </div>
         <div class="more">
           <span v-if="user.recent_topics.length">
-            <router-link :to="`/user/${user.loginname}/topics`">查看更多》</router-link>
+            <router-link :to="`/vue-shequ/user/${user.loginname}/topics`">查看更多》</router-link>
           </span>
           <span v-else>无话题</span>
         </div>
@@ -52,7 +52,7 @@
         <div class="tagulWrap">
           <div class="tagul" v-for="set in user.recent_replies" :key="set.id">
             <div class="one">
-              <router-link :to="`/user/${set.author.loginname}`">
+              <router-link :to="`/vue-shequ/user/${set.author.loginname}`">
                 <img :src="set.author.avatar_url" alt />
               </router-link>
             </div>
@@ -61,7 +61,7 @@
           <span :style="{color:'#ccc'}">{{topic.visit_count}}</span>
             </div>-->
             <div class="four">
-              <router-link :to="`/topic/${set.id}`" :title="set.title">{{set.title}}</router-link>
+              <router-link :to="`/vue-shequ/topic/${set.id}`" :title="set.title">{{set.title}}</router-link>
             </div>
             <div class="five time">
               <span>{{myMomentUser(set.last_reply_at)}}</span>
@@ -99,17 +99,19 @@ export default {
       handler() {
         const nowId = this.$route.params.loginname;
         console.log(this.$route.params.loginname);
-        axios.get(`https://www.vue-js.com/api/v1/user/${nowId}`).then(res => {
-          this.user = res.data.data;
-          console.log(this.user);
-        });
+        axios
+          .get(`https://www.vue-js.com/api/vue-shequ/v1/user/${nowId}`)
+          .then(res => {
+            this.user = res.data.data;
+            console.log(this.user);
+          });
       }
     }
   },
 
   methods: {
     goBack() {
-      this.$router.push("/");
+      this.$router.push("/vue-shequ/");
     },
     myMomentUser(time) {
       moment.locale("zh-cn");

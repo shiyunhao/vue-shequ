@@ -3,7 +3,7 @@
     <div v-if="has_read_messages.length||hasnot_read_messages.length" class="message-inner">
       <div class="message-new">
         <div>
-          <span>主页</span>
+          <span @click="goback">主页</span>
           <span>/</span>
           <span>新消息</span>
         </div>
@@ -11,9 +11,11 @@
           <ul v-if="hasnot_read_messages.length">
             <li v-for="message in hasnot_read_messages" :key="message.id">
               <div>
-                <router-link :to="`/user/${message.author.loginname}`">{{message.author.loginname}}</router-link>
+                <router-link
+                  :to="`/vue-shequ/user/${message.author.loginname}`"
+                >{{message.author.loginname}}</router-link>
                 <span>在话题</span>
-                <router-link :to="`/topics/${message.topic.id}`">{{message.topic.title}}</router-link>
+                <router-link :to="`/vue-shequ/topics/${message.topic.id}`">{{message.topic.title}}</router-link>
                 <span>中@了你</span>
               </div>
               <div class="arrirm">
@@ -31,9 +33,11 @@
         <ul v-if="has_read_messages.length">
           <li v-for="message in has_read_messages" :key="message.id">
             <div>
-              <router-link :to="`/user/${message.author.loginname}`">{{message.author.loginname}}</router-link>
+              <router-link
+                :to="`/vue-shequ/user/${message.author.loginname}`"
+              >{{message.author.loginname}}</router-link>
               <span>{{message.type==='at'?'在话题':'回复了你的话题'}}</span>
-              <router-link :to="`/topics/${message.topic.id}`">{{message.topic.title}}</router-link>
+              <router-link :to="`/vue-shequ/topics/${message.topic.id}`">{{message.topic.title}}</router-link>
               <span>{{message.type==='at'?'中@了你':''}}</span>
             </div>
             <div class="arrirm">
@@ -64,7 +68,7 @@ export default {
   created() {
     axios
       .get(
-        `https://www.vue-js.com/api/v1/messages?accesstoken=${sessionStorage.getItem(
+        `https://www.vue-js.com/api/v1/vue-shequ/messages?accesstoken=${sessionStorage.getItem(
           "token"
         )}`
       )
@@ -76,9 +80,14 @@ export default {
         this.hasnot_read_messages = res.data.data.hasnot_read_messages;
         console.log(this.hasnot_read_messages);
       });
-    axios.post("https://www.vue-js.com/api/v1/message/mark_all", {
+    axios.post("https://www.vue-js.com/api/v1/vue-shequ/message/mark_all", {
       accesstoken: sessionStorage.getItem("token")
     });
+  },
+  methods: {
+    goback() {
+      this.$router.push("/vue-shequ/");
+    }
   }
 };
 </script>

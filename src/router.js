@@ -3,34 +3,33 @@ import VueRouter from "vue-router";
 import Home from "./components/Home.vue";
 import Topic from "./components/Topic.vue";
 import User from "./components/User.vue";
-import UserList from "./components/UserList.vue";
 import AddArticle from "./components/AddArticle.vue";
 import Messages from "./components/Messages.vue";
 Vue.use(VueRouter);
 export default new VueRouter({
   routes: [
+    // {
+    //   path: "/",
+    //   redirect: "/vue-shequ/"
+    // },
     {
-      path: "/",
+      path: "/vue-shequ/",
       component: Home
     },
     {
-      path: "/topics/:id",
+      path: "/vue-shequ/topics/:id",
       component: Topic
     },
     {
-      path: "/user/:loginname",
+      path: "/vue-shequ/user/:loginname",
       component: User
     },
     {
-      path: "/user/:loginname/topics",
-      component: UserList
-    },
-    {
-      path: "/topic/create",
+      path: "/vue-shequ/topic/create",
       component: AddArticle
     },
     {
-      path: "/my/messages",
+      path: "/vue-shequ/my/messages",
       component: Messages
     }
   ],

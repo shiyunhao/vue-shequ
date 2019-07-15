@@ -108,10 +108,12 @@ export default {
   created() {
     // 获取当前页面的 路由值，fullPath的值含有太多无用的数据，使用数据自带的 params.id  ,把获取到的 id 值，给下面的axios  获取相应的后台数据
     const nowId = this.$route.params.id;
-    axios.get(`https://www.vue-js.com/api/v1/topic/${nowId}`).then(res => {
-      this.topic = res.data.data;
-      console.log(res.data.data);
-    });
+    axios
+      .get(`https://www.vue-js.com/api/v1/vue-shequ/topic/${nowId}`)
+      .then(res => {
+        this.topic = res.data.data;
+        console.log(res.data.data);
+      });
   },
   methods: {
     changebg() {
@@ -122,7 +124,7 @@ export default {
       // 判断 如果 if成立，则 this.is_collect 的值是true，表示已收藏了
       if (this.is_collect) {
         axios
-          .post("https://www.vue-js.com/api/v1/topic/de_collect", obj)
+          .post("https://www.vue-js.com/api/v1/vue-shequ/topic/de_collect", obj)
           .then(res => {
             if (res.data.success) {
               this.is_collect = false;
@@ -130,7 +132,7 @@ export default {
           });
       } else {
         axios
-          .post("https://www.vue-js.com/api/v1/topic/collect", obj)
+          .post("https://www.vue-js.com/api/v1/vue-shequ/topic/collect", obj)
           .then(res => {
             if (res.data.success) {
               this.is_collect = true;
@@ -144,13 +146,13 @@ export default {
     },
     changeComment() {
       axios
-        .post(`https://www.vue-js.com/api/v1/topic/${this.topic.id}/replies`, {
+        .post(`https://www.vue-js.com/api/v1/vue-shequ/topic/${this.topic.id}/replies`, {
           accesstoken: sessionStorage.getItem("token"),
           content: this.val
         })
         .then(res => {
           axios
-            .get(`https://www.vue-js.com/api/v1/topic/${this.topic.id}`)
+            .get(`https://www.vue-js.com/api/v1/vue-shequ/topic/${this.topic.id}`)
             .then(res => {
               this.topic = res.data.data;
               this.val = "";
@@ -162,7 +164,7 @@ export default {
       // 首先判断 用户有没有登录 ，没有登录
       if (sessionStorage.getItem("token")) {
         axios
-          .post(`https://www.vue-js.com/api/v1/reply/${id}/ups`, {
+          .post(`https://www.vue-js.com/api/v1/vue-shequ/reply/${id}/ups`, {
             accesstoken: sessionStorage.getItem("token")
           })
           .then(res => {

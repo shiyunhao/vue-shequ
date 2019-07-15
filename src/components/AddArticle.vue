@@ -58,12 +58,12 @@ export default {
   },
   methods: {
     goback() {
-      this.$router.push("/");
+      this.$router.push("/vue-shequ/");
     },
     submit() {
       console.log(this.content);
       axios
-        .post("https://www.vue-js.com/api/v1/topics", {
+        .post("https://www.vue-js.com/api/v1/vue-shequ/topics", {
           tab: this.tab,
           title: this.title,
           content: this.content.trim(),
@@ -75,7 +75,7 @@ export default {
           this.title = "";
           this.content = "";
           // 跳转到发布页面
-          this.$router.push(`/topics/${res.data.topic_id}`);
+          this.$router.push(`/vue-shequ/topics/${res.data.topic_id}`);
         });
     },
     onEditorBlur(quill) {
