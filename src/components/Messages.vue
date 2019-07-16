@@ -12,10 +12,12 @@
             <li v-for="message in hasnot_read_messages" :key="message.id">
               <div>
                 <router-link
-                  :to="`/vue-shequ/user/${message.author.loginname}`"
+                  :to="`${$publicUrl}/user/${message.author.loginname}`"
                 >{{message.author.loginname}}</router-link>
                 <span>在话题</span>
-                <router-link :to="`/vue-shequ/topics/${message.topic.id}`">{{message.topic.title}}</router-link>
+                <router-link
+                  :to="`${$publicUrl}/topics/${message.topic.id}`"
+                >{{message.topic.title}}</router-link>
                 <span>中@了你</span>
               </div>
               <div class="arrirm">
@@ -34,10 +36,10 @@
           <li v-for="message in has_read_messages" :key="message.id">
             <div>
               <router-link
-                :to="`/vue-shequ/user/${message.author.loginname}`"
+                :to="`${$publicUrl}/user/${message.author.loginname}`"
               >{{message.author.loginname}}</router-link>
               <span>{{message.type==='at'?'在话题':'回复了你的话题'}}</span>
-              <router-link :to="`/vue-shequ/topics/${message.topic.id}`">{{message.topic.title}}</router-link>
+              <router-link :to="`${$publicUrl}/topics/${message.topic.id}`">{{message.topic.title}}</router-link>
               <span>{{message.type==='at'?'中@了你':''}}</span>
             </div>
             <div class="arrirm">
@@ -68,7 +70,7 @@ export default {
   created() {
     axios
       .get(
-        `https://www.vue-js.com/api/v1/vue-shequ/messages?accesstoken=${sessionStorage.getItem(
+        `https://www.vue-js.com/api/v1/messages?accesstoken=${sessionStorage.getItem(
           "token"
         )}`
       )
@@ -80,13 +82,13 @@ export default {
         this.hasnot_read_messages = res.data.data.hasnot_read_messages;
         console.log(this.hasnot_read_messages);
       });
-    axios.post("https://www.vue-js.com/api/v1/vue-shequ/message/mark_all", {
+    axios.post("https://www.vue-js.com/api/v1/message/mark_all", {
       accesstoken: sessionStorage.getItem("token")
     });
   },
   methods: {
     goback() {
-      this.$router.push("/vue-shequ/");
+      this.$router.push(`${this.$publicUrl}`);
     }
   }
 };

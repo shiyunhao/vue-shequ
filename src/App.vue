@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     goHome() {
-      this.$router.push("/vue-shequ/");
+      this.$router.push(`${this.$publicUrl}`);
     }
   }
 };

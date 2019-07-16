@@ -5,31 +5,28 @@ import Topic from "./components/Topic.vue";
 import User from "./components/User.vue";
 import AddArticle from "./components/AddArticle.vue";
 import Messages from "./components/Messages.vue";
+import PUBLICURL from "./link";
 Vue.use(VueRouter);
 export default new VueRouter({
   routes: [
-    // {
-    //   path: "/",
-    //   redirect: "/vue-shequ/"
-    // },
     {
-      path: "/vue-shequ/",
+      path: PUBLICURL,
       component: Home
     },
     {
-      path: "/vue-shequ/topics/:id",
+      path: `${PUBLICURL}/topics/:id`,
       component: Topic
     },
     {
-      path: "/vue-shequ/user/:loginname",
+      path: `${PUBLICURL}/user/:loginname`,
       component: User
     },
     {
-      path: "/vue-shequ/topic/create",
+      path: `${PUBLICURL}/topic/create`,
       component: AddArticle
     },
     {
-      path: "/vue-shequ/my/messages",
+      path: `${PUBLICURL}/my/messages`,
       component: Messages
     }
   ],

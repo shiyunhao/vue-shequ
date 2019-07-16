@@ -1,2 +1,2 @@
-const link = "/vue-shequ/";
-export default link;
+const PUBLICURL = "/vue-shequ";
+export default PUBLICURL;

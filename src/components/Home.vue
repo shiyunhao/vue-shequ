@@ -4,30 +4,30 @@
       <ul>
         <li>
           <router-link
-            :class="$route.fullPath.indexOf('all')!= -1||$route.fullPath==='/vue-shequ/'?'active':''"
-            to="/vue-shequ/?tab=all"
+            :class="$route.fullPath.indexOf('all')!= -1||$route.fullPath==='/'?'active':''"
+            :to="`${$publicUrl}/?tab=all`"
           >全部</router-link>
         </li>
         <li>
-          <router-link :class="$route.fullPath.indexOf('good')!= -1?'active':''" to="/vue-shequ/?tab=good">精华</router-link>
+          <router-link :class="$route.fullPath.indexOf('good')!= -1?'active':''" :to="`${$publicUrl}/?tab=good`">精华</router-link>
         </li>
         <li>
           <router-link
             :class="$route.fullPath.indexOf('weex')!= -1?'active':''"
-            to="/vue-shequ/?tab=weex"
+            :to="`${$publicUrl}/?tab=weex`"
           >weex</router-link>
         </li>
         <li>
           <router-link
             :class="$route.fullPath.indexOf('share')!= -1?'active':''"
-            to="/vue-shequ/?tab=share"
+            :to="`${$publicUrl}/?tab=share`"
           >分享</router-link>
         </li>
         <li>
-          <router-link :class="$route.fullPath.indexOf('ask')!= -1?'active':''" to="/vue-shequ/?tab=ask">问答</router-link>
+          <router-link :class="$route.fullPath.indexOf('ask')!= -1?'active':''" :to="`${$publicUrl}/?tab=ask`">问答</router-link>
         </li>
         <li>
-          <router-link :class="$route.fullPath.indexOf('job')!= -1?'active':''" to="/vue-shequ/?tab=job">招聘</router-link>
+          <router-link :class="$route.fullPath.indexOf('job')!= -1?'active':''" :to="`${$publicUrl}/?tab=job`">招聘</router-link>
         </li>
       </ul>
     </div>
@@ -36,7 +36,7 @@
         <ul v-if="topics.length">
           <li v-for="topic in topics" :key="topic.id">
             <div class="one">
-              <router-link :to="`/vue-shequ/user/${topic.author.loginname}`">
+              <router-link :to="`${$publicUrl}/user/${topic.author.loginname}`">
                 <img :src="topic.author.avatar_url" alt />
               </router-link>
             </div>
@@ -46,14 +46,14 @@
             </div>
             <div
               class="three"
-              v-if="$route.fullPath ==='/vue-shequ/?tab=all'||$route.fullPath==='/'||topic.good||topic.top"
+              v-if="$route.fullPath ==='/?tab=all'||$route.fullPath==='/'||topic.good||topic.top"
             >
               <span
                 :class="{type:true,bg:topic.top||topic.good}"
               >{{topic.top?'置顶':topic.good?'精华':topic.tab==='ask'?'问答':topic.tab==='share'?'分享':topic.tab==='job'?'招聘':'week'}}</span>
             </div>
             <div class="four">
-              <router-link :to="`/vue-shequ/topics/${topic.id}`" :title="topic.title">{{topic.title}}</router-link>
+              <router-link :to="`${$publicUrl}/topics/${topic.id}`" :title="topic.title">{{topic.title}}</router-link>
             </div>
             <div class="five time">
               <span>{{myMoment(topic.last_reply_at)}}</span>
@@ -91,6 +91,7 @@ export default {
     "$route.fullPath": {
       immediate: true,
       handler() {
+        console.log(this.$publicUrl);
         const tab = this.$route.query.tab || "all";
         const num = Number(this.$route.query.page) || 1;
         console.log(tab);
@@ -111,7 +112,7 @@ export default {
         }
         // console.log(link);
         axios
-          .get(`https://www.vue-js.com/api/v1/vue-shequ/topics/?tab=${tab}&page=${num}`)
+          .get(`https://www.vue-js.com/api/v1/topics/?tab=${tab}&page=${num}`)
           .then(res => {
             setTimeout(() => {
               this.topics = res.data.data;
@@ -131,7 +132,7 @@ export default {
     change(text) {
       const tab = this.$route.query.tab || "all";
       console.log(this.$route.query);
-      this.$router.push(`/vue-shequ/?tab=${tab}&page=${text}`);
+      this.$router.push(`${this.$publicUrl}/?tab=${tab}&page=${text}`);
     }
   }
 };

@@ -14,16 +14,16 @@
       </div>
       <div class="addArticle">
         <span v-if="userInfo&&this.$route.fullPath.indexOf('topic/create')===-1">
-          <router-link to="/vue-shequ/topic/create">发布文章</router-link>
+          <router-link :to="`${$publicUrl}/topic/create`">发布文章</router-link>
         </span>
       </div>
       <div class="header-nav">
         <div class="nav-ul">
           <div class="nav-li">
-            <router-link to="/vue-shequ/">首页</router-link>
+            <router-link :to="`${$publicUrl}`">首页</router-link>
           </div>
           <div v-if="userInfo" class="nav-li spanInLi">
-            <router-link to="/vue-shequ/my/messages">
+            <router-link :to="`${$publicUrl}/my/messages`">
               <span v-if="messageNum">{{messageNum}}</span>未读消息
             </router-link>
           </div>
@@ -63,7 +63,7 @@ export default {
   created() {
     if (sessionStorage.getItem("token")) {
       axios
-        .post("https://www.vue-js.com/api/v1/vue-shequ/accesstoken", {
+        .post("https://www.vue-js.com/api/v1/accesstoken", {
           accesstoken: this.val
         })
         .then(res => {
@@ -79,7 +79,7 @@ export default {
         if (sessionStorage.getItem("token")) {
           axios
             .get(
-              `https://www.vue-js.com/api/v1/vue-shequ/message/count?accesstoken=${sessionStorage.getItem(
+              `https://www.vue-js.com/api/v1/message/count?accesstoken=${sessionStorage.getItem(
                 "token"
               )}`
             )
@@ -93,9 +93,9 @@ export default {
   },
   methods: {
     login() {
-      this.$router.push("/vue-shequ/");
+      this.$router.push(`${this.$publicUrl}`);
       axios
-        .post("https://www.vue-js.com/api/v1/vue-shequ/accesstoken", {
+        .post("https://www.vue-js.com/api/v1/accesstoken", {
           accesstoken: this.val
         })
         .then(res => {
@@ -106,7 +106,7 @@ export default {
         });
     },
     logout() {
-      this.$router.push("/vue-shequ/");
+      this.$router.push(`${this.$publicUrl}`);
       this.userInfo = null;
       sessionStorage.clear();
     }
